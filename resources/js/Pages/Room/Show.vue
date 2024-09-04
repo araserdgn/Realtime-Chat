@@ -1,13 +1,12 @@
 <script setup>
+
 import { Head } from '@inertiajs/vue3';
 import Nav from "@/Components/Chat/Nav.vue";
 import Header from "@/Components/Chat/Header.vue";
 import Messages from "@/Components/Chat/Messages.vue";
 import Footer from "@/Components/Chat/Footer.vue";
 
-defineProps({
 
-})
 
 </script>
 
@@ -35,7 +34,8 @@ defineProps({
             <!-- END  Content -->
 
             <!-- Footer -->
-            <Footer />
+            <Footer v-on:valid="console.log($event)"
+            />
             <!-- END Footer -->
 
         </div>
