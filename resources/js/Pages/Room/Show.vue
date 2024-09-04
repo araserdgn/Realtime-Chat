@@ -1,38 +1,45 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
+import Nav from "@/Components/Chat/Nav.vue";
+import Header from "@/Components/Chat/Header.vue";
+import Messages from "@/Components/Chat/Messages.vue";
+import Footer from "@/Components/Chat/Footer.vue";
 
 defineProps({
-    room: {
-        type:Object,
-        required: true,
-    },
 
-    // messages: {
-    //     type:Array,
-    //     required:true,
-    // },
 })
 
 </script>
 
 <template>
-    <Head title="ChatPage" />
 
-    <AuthenticatedLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Message Area</h2>
-        </template>
+    <Head title="Messages Area" />
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">
-                        {{ room }}
-                    </div>
-                </div>
-            </div>
+    <div>
+        <!--  Container -->
+        <div
+            id="page-container"
+            class="relative mx-auto h-screen min-w-[320px] bg-white lg:ms-80"
+        >
+            <!--  Sidebar -->
+            <Nav />
+            <!-- END Sidebar -->
+
+            <!--  Header -->
+            <Header/>
+
+            <!-- END  Header -->
+
+            <!--  Content -->
+            <Messages  />
+            <!-- END  Content -->
+
+            <!-- Footer -->
+            <Footer />
+            <!-- END Footer -->
+
         </div>
-    </AuthenticatedLayout>
+        <!-- END Page Container -->
+    </div>
 
 </template>
