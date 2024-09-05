@@ -6,7 +6,9 @@ import Header from "@/Components/Chat/Header.vue";
 import Messages from "@/Components/Chat/Messages.vue";
 import Footer from "@/Components/Chat/Footer.vue";
 
+import { useMessagesStore } from '@/Store/useMessagesStore';
 
+const messageStore = useMessagesStore();
 
 </script>
 
@@ -31,6 +33,7 @@ import Footer from "@/Components/Chat/Footer.vue";
 
             <!--  Content -->
             <Messages  />
+            {{ messageStore.allMessages }}
             <!-- END  Content -->
 
             <!-- Footer -->
