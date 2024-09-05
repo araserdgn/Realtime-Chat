@@ -33,7 +33,6 @@ const messageStore = useMessagesStore();
 
             <!--  Content -->
             <Messages  />
-            {{ messageStore.allMessages }}
             <!-- END  Content -->
 
             <!-- Footer -->
