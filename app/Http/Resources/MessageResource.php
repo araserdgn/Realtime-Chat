@@ -18,7 +18,7 @@ class MessageResource extends JsonResource
             'id' => $this->id,
             'content' => $this->content,
             'user' => new UserResource($this->user),
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at->format('Y-m-d g:i a'),
         ];
     }
 }

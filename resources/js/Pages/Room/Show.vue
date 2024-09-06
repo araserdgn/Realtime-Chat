@@ -1,5 +1,6 @@
 <script setup>
 
+// import { onMounted } from 'vue';
 import { Head } from '@inertiajs/vue3';
 import Nav from "@/Components/Chat/Nav.vue";
 import Header from "@/Components/Chat/Header.vue";
@@ -17,8 +18,9 @@ const props = defineProps({
 
 const messagesStore = useMessagesStore();
 
+// onMounted(() => {
     messagesStore.fetchMessages(props.room.slug);
-
+// });
 
 </script>
 
@@ -42,13 +44,11 @@ const messagesStore = useMessagesStore();
             <!-- END  Header -->
 
             <!--  Content -->
-            {{ messagesStore.allMessages }}
             <Messages  />
             <!-- END  Content -->
 
             <!-- Footer -->
-            <Footer v-on:valid="console.log($event)"
-            />
+            <Footer v-on:valid="console.log($event)"/>
             <!-- END Footer -->
 
         </div>
