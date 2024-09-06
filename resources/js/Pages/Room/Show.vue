@@ -8,7 +8,17 @@ import Footer from "@/Components/Chat/Footer.vue";
 
 import { useMessagesStore } from '@/Store/useMessagesStore';
 
-const messageStore = useMessagesStore();
+const props = defineProps({
+    room: {
+        type: Object,
+        required: true,
+    },
+})
+
+const messagesStore = useMessagesStore();
+
+    messagesStore.fetchMessages(props.room.slug);
+
 
 </script>
 
@@ -32,6 +42,7 @@ const messageStore = useMessagesStore();
             <!-- END  Header -->
 
             <!--  Content -->
+            {{ messagesStore.allMessages }}
             <Messages  />
             <!-- END  Content -->
 
