@@ -44,7 +44,7 @@ const messagesStore = useMessagesStore();
             <!-- END  Header -->
 
             <!--  Content -->
-            <Messages  />
+            <Messages :room="room" />
             <!-- END  Content -->
 
             <!-- Footer -->

@@ -15,16 +15,17 @@ const props = defineProps({
     },
 });
 
+
+const messagesStore = useMessagesStore();
+
 const { stop } = useIntersectionObserver(
     target,
         ([{ isIntersecting }], observerElement) => {
-            if (isIntersecting) {
-                console.log("İs interesting");
+            if (isIntersecting && messagesStore.getIsLoaded) {
+                messagesStore.fetchPreviousMessages(props.room.slug);
             }
         },
 )
-
-const messagesStore = useMessagesStore();
 
 </script>
 
@@ -80,7 +81,9 @@ const messagesStore = useMessagesStore();
                     {{ message.created_at }}
                 </p>
             </div>
+
             <div ref="target" class="translate-y-20"></div>
+
         </div>
     </main>
 </template>

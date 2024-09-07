@@ -4,27 +4,36 @@ import { defineStore } from "pinia";
 export const useMessagesStore = defineStore("messages", {
     state: () => ({
         page: 1,
-        messages: []
+        messages: [],
+        isLoaded : false,
     }),
 
     actions: {
+
         fetchMessages(roomSlug, page = 1) {
-            axios.get(`/rooms/${roomSlug}/messages?page=${page}`)
+            axios
+                .get(`/rooms/${roomSlug}/messages?page=${page}`)
                 .then((response) => {
-                    // Verileri birleştir
                     this.messages = [...this.messages, ...response.data.data];
-                    // Sayfa bilgisini güncelle
                     this.page = response.data.meta.current_page;
-                })
-                .catch(error => {
-                    console.error('Fetch Messages Error:', error);
+
+                    this.isLoaded = true;
                 });
-        }
+        },
+        fetchPreviousMessages(roomSlug) {
+            this.fetchMessages(roomSlug, this.page + 1);
+        },
+
     },
 
     getters: {
+
         allMessages(state) {
             return state.messages;
+        } ,
+
+        getIsLoaded(state) {
+            return state.isLoaded;
         }
     }
 });
