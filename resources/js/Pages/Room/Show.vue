@@ -18,6 +18,10 @@ const props = defineProps({
 
 const messagesStore = useMessagesStore();
 
+const storeMessage = (payload) => {
+    messagesStore.storeMessage(props.room.slug, payload);
+}
+
 // onMounted(() => {
     messagesStore.fetchMessages(props.room.slug);
 // });
@@ -48,7 +52,7 @@ const messagesStore = useMessagesStore();
             <!-- END  Content -->
 
             <!-- Footer -->
-            <Footer v-on:valid="console.log($event)"/>
+            <Footer v-on:valid="storeMessage({content: $event})"/>
             <!-- END Footer -->
 
         </div>

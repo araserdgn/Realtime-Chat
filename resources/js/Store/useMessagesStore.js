@@ -5,11 +5,10 @@ export const useMessagesStore = defineStore("messages", {
     state: () => ({
         page: 1,
         messages: [],
-        isLoaded : false,
+        isLoaded: false,
     }),
 
     actions: {
-
         fetchMessages(roomSlug, page = 1) {
             axios
                 .get(`/rooms/${roomSlug}/messages?page=${page}`)
@@ -20,20 +19,34 @@ export const useMessagesStore = defineStore("messages", {
                     this.isLoaded = true;
                 });
         },
+
         fetchPreviousMessages(roomSlug) {
             this.fetchMessages(roomSlug, this.page + 1);
         },
 
+        storeMessage(roomSlug, payload) {
+            axios
+                .post(`/rooms/${roomSlug}/messages`, payload)
+                .then((response) => {
+                    console.log("Message stored:", response.data);
+                    this.messages = [response.data, ...this.messages];
+                })
+                .catch((error) => {
+                    console.error(
+                        "Error storing message:",
+                        error.response.data
+                    );
+                });
+        },
     },
 
     getters: {
-
         allMessages(state) {
             return state.messages;
-        } ,
+        },
 
         getIsLoaded(state) {
             return state.isLoaded;
-        }
-    }
+        },
+    },
 });
