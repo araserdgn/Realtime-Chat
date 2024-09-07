@@ -20,7 +20,7 @@ class MessageController extends Controller
 
         $message = $room->messages()->make($request->validated());
 
-        $message->user()->associate(Auth::user());;
+        $message->user()->associate(Auth::user());
 
         $message->save();
 
