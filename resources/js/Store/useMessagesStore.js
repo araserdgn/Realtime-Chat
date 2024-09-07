@@ -34,7 +34,8 @@ export const useMessagesStore = defineStore("messages", {
                 })
                 .then((response) => {
                     console.log("Message stored:", response.data);
-                    this.messages = [response.data, ...this.messages];
+                    // this.messages = [response.data, ...this.messages];
+                    this.pushMessage(response.data);
                 })
                 .catch((error) => {
                     console.error(
@@ -43,6 +44,11 @@ export const useMessagesStore = defineStore("messages", {
                     );
                 });
         },
+
+        pushMessage(message) {
+            this.messages.pop();
+            this.messages = [message, ...this.messages];
+        }
     },
 
     getters: {
