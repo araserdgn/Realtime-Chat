@@ -8,6 +8,7 @@ import Messages from "@/Components/Chat/Messages.vue";
 import Footer from "@/Components/Chat/Footer.vue";
 
 import { useMessagesStore } from '@/Store/useMessagesStore';
+import { useUsersStore } from '@/Store/useUsersStore';
 // import Echo from 'laravel-echo';
 
 const props = defineProps({
@@ -18,6 +19,7 @@ const props = defineProps({
 })
 
 const messagesStore = useMessagesStore();
+const usersStore = useUsersStore();
 
 const storeMessage = (payload) => {
     messagesStore.storeMessage(props.room.slug, payload);
@@ -30,7 +32,7 @@ channel.listen("MessageCreated", (e) => {
     messagesStore.pushMessage(e);
 })
 .here((users) => [
-    console.log(users)
+    usersStore.setUsers(users)
 ]);
 
 
