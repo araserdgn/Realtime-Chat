@@ -8,6 +8,7 @@ import Messages from "@/Components/Chat/Messages.vue";
 import Footer from "@/Components/Chat/Footer.vue";
 
 import { useMessagesStore } from '@/Store/useMessagesStore';
+// import Echo from 'laravel-echo';
 
 const props = defineProps({
     room: {
@@ -22,9 +23,15 @@ const storeMessage = (payload) => {
     messagesStore.storeMessage(props.room.slug, payload);
 }
 
-// onMounted(() => {
+const channel = Echo.join(`room.${props.room.id}`)
+
+channel.listen("MessageCreated",(e) => {
+    console.log(e);
+})
+
+console.log(Echo.socketId());
+
     messagesStore.fetchMessages(props.room.slug);
-// });
 
 </script>
 

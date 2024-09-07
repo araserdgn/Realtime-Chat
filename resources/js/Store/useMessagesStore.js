@@ -1,4 +1,5 @@
 import axios from "axios";
+// import Echo from "laravel-echo";
 import { defineStore } from "pinia";
 
 export const useMessagesStore = defineStore("messages", {
@@ -26,7 +27,11 @@ export const useMessagesStore = defineStore("messages", {
 
         storeMessage(roomSlug, payload) {
             axios
-                .post(`/rooms/${roomSlug}/messages`, payload)
+                .post(`/rooms/${roomSlug}/messages`, payload, {
+                    headers: {
+                        'X-Socket-Id': Echo.socketId(),
+                    },
+                })
                 .then((response) => {
                     console.log("Message stored:", response.data);
                     this.messages = [response.data, ...this.messages];
