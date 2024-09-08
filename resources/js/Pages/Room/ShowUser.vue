@@ -1,14 +1,3 @@
-<script setup>
-import { useUsersStore } from '@/Store/useUsersStore';
-import { Link } from '@inertiajs/vue3';
-
-
-
-const usersStore = useUsersStore();
-
-</script>
-<!-- !props.mobileSidebarOpen, -->
-
 <template>
     <!-- <nav
         id="page-sidebar"
@@ -88,14 +77,13 @@ const usersStore = useUsersStore();
         <!-- Main Navigation -->
         <div class="grow space-y-2 ps-4 pt-2">
             <a
-                v-for="user in usersStore.allUsers"
-                :key="user.id"
+                v-for="user in users" :key="user.id" @click="startPrivateChat(user)"
                 href="javascript:void(0)"
                 class="flex items-center gap-3 border-indigo-500 bg-white px-3 py-4 shadow-sm ltr:rounded-l ltr:border-l-4 rtl:rounded-r rtl:border-r-4"
             >
                 <div class="relative flex-none">
                     <img
-                        :src="user.avatar"
+                        src="https://e7.pngegg.com/pngimages/84/165/png-clipart-united-states-avatar-organization-information-user-avatar-service-computer-wallpaper-thumbnail.png"
                         alt="User Avatar"
                         class="h-11 w-11 rounded-full border-2 border-white/50"
                     />
@@ -166,3 +154,29 @@ const usersStore = useUsersStore();
     </nav>
 </template>
 
+  <script setup>
+  import { ref, onMounted } from 'vue';
+import { Link } from '@inertiajs/vue3';
+
+//   import Echo from 'laravel-echo';
+
+  const users = ref([]);
+
+  const startPrivateChat = () => {
+    // Özel bir odaya yönlendirme
+    window.location.href = `/rooms/inertia/`;
+  };
+
+  onMounted(() => {
+    Echo.join('presence.active-users')
+      .here((activeUsers) => {
+        users.value = activeUsers;
+      })
+      .joining((user) => {
+        users.value.push(user);
+      })
+      .leaving((user) => {
+        users.value = users.value.filter((u) => u.id !== user.id);
+      });
+  });
+  </script>

@@ -17,5 +17,9 @@ class RoomSeeder extends Seeder
             'title' => "Inertia",
             'slug' => "inertia"
         ]);
+        Room::create([
+            'title' => "Clone",
+            'slug' => "clone"
+        ]);
     }
 }

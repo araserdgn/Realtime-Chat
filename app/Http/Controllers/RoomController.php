@@ -15,4 +15,10 @@ class RoomController extends Controller
             'room' => RoomResource::make($room)
         ]);
     }
+    public function showUser(Room $room) {
+
+        return Inertia::render('Room/ShowUser', [
+            'room' => RoomResource::make($room)
+        ]);
+    }
 }

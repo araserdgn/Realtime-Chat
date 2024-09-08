@@ -27,6 +27,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('rooms/{room:slug}',[RoomController::class, 'show'])->name('rooms.show');
 
+    Route::get('rooms/',[RoomController::class, 'showUser'])->name('rooms.index');
+
     Route::get('rooms/{room:slug}/messages',[MessageController::class, 'index'])->name('messages.index');
 
     Route::post('rooms/{room:slug}/messages',[MessageController::class, 'store'])->name('messages.store');

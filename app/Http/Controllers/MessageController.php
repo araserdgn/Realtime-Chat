@@ -18,7 +18,10 @@ class MessageController extends Controller
 
     public function store(StoreMessageRequest $request, Room $room) {
 
-        $message = $room->messages()->make($request->validated());
+        $message = $room->messages()->create([
+            'content' => $request->input('content'),
+            'user_id' => auth()->id(),
+        ]);
 
         $message->user()->associate(Auth::user());
 
