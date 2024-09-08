@@ -31,9 +31,9 @@ channel.listen("MessageCreated", (e) => {
 
     messagesStore.pushMessage(e);
 })
-.here((users) => [
-    usersStore.setUsers(users)
-]);
+.here((users) => usersStore.setUsers(users))
+.joining((user) => usersStore.addUser(user))
+.leaving((user) => usersStore.removeUser(user))
 
 
 // console.log(Echo.socketId());
