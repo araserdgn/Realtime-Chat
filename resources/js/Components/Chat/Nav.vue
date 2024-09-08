@@ -2,6 +2,13 @@
 import { useUsersStore } from '@/Store/useUsersStore';
 import { Link } from '@inertiajs/vue3';
 
+const props = defineProps({
+    handleSidebar: {
+        type: Function,
+        required: true,
+    },
+    mobileSidebarOpen: Boolean,
+});
 
 
 const usersStore = useUsersStore();
@@ -10,20 +17,16 @@ const usersStore = useUsersStore();
 <!-- !props.mobileSidebarOpen, -->
 
 <template>
-    <!-- <nav
-        id="page-sidebar"
+
+    <nav
+    id="page-sidebar"
         class="fixed bottom-0 start-0 top-0 z-50 flex h-full w-80 flex-col overflow-auto bg-slate-200 transition-transform duration-500 ease-out lg:translate-x-0 lg:shadow-none ltr:lg:translate-x-0 rtl:lg:translate-x-0 ltr:-translate-x-full rtl:translate-x-full lg:flex"
         aria-label="Main Sidebar Navigation"
         :class="{
             'ltr:-translate-x-full rtl:translate-x-full hidden':
-
+            !props.mobileSidebarOpen,
             'translate-x-0 shadow-lg block': props.mobileSidebarOpen,
         }"
-    > -->
-    <nav
-        id="page-sidebar"
-        class="fixed bottom-0 start-0 top-0 z-50 flex h-full w-80 flex-col overflow-auto bg-slate-200 transition-transform duration-500 ease-out lg:translate-x-0 lg:shadow-none ltr:lg:translate-x-0 rtl:lg:translate-x-0 ltr:-translate-x-full rtl:translate-x-full lg:flex"
-        aria-label="Main Sidebar Navigation"
     >
         <!-- Sidebar Header -->
         <div
@@ -58,15 +61,15 @@ const usersStore = useUsersStore();
 
             <!-- Close Sidebar on Mobile -->
             <div class="lg:hidden">
-                <!-- <button
+                <button
                     type="button"
                     @click="handleSidebar(false)"
                     class="flex h-10 w-10 items-center justify-center text-slate-400 hover:text-slate-600 active:text-slate-400"
-                > -->
-                <button
+                >
+                <!-- <button
                     type="button"
                     class="flex h-10 w-10 items-center justify-center text-slate-400 hover:text-slate-600 active:text-slate-400"
-                >
+                > -->
                     <svg
                         class="hi-solid hi-x -mx-1 inline-block h-5 w-5"
                         fill="currentColor"

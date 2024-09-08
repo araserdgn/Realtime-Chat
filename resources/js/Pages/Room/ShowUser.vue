@@ -161,16 +161,16 @@ import { Link } from '@inertiajs/vue3';
 //   import Echo from 'laravel-echo';
 
   const users = ref([]);
-
   const startPrivateChat = () => {
-    // Özel bir odaya yönlendirme
-    window.location.href = `/rooms/inertia/`;
+    window.location.href = `/rooms/chat/`;
   };
 
   onMounted(() => {
+
     Echo.join('presence.active-users')
       .here((activeUsers) => {
         users.value = activeUsers;
+
       })
       .joining((user) => {
         users.value.push(user);
