@@ -1,6 +1,6 @@
 <script setup>
 
-// import { onMounted } from 'vue';
+import {onUnmounted} from "vue";
 import { Head } from '@inertiajs/vue3';
 import Nav from "@/Components/Chat/Nav.vue";
 import Header from "@/Components/Chat/Header.vue";
@@ -18,6 +18,11 @@ const props = defineProps({
     },
 })
 
+
+onUnmounted(() => {
+    Echo.leave(`room.${props.room.id}`)
+});
+
 const messagesStore = useMessagesStore();
 const usersStore = useUsersStore();
 
@@ -34,6 +39,9 @@ channel.listen("MessageCreated", (e) => {
 .here((users) => usersStore.setUsers(users))
 .joining((user) => usersStore.addUser(user))
 .leaving((user) => usersStore.removeUser(user))
+.listenForWhisper("typing", (e) => {
+    usersStore.setTyping(e);
+})
 
 
 // console.log(Echo.socketId());
@@ -66,7 +74,12 @@ channel.listen("MessageCreated", (e) => {
             <!-- END  Content -->
 
             <!-- Footer -->
-            <Footer v-on:valid="storeMessage({content: $event})"/>
+            <Footer
+            v-on:valid="storeMessage({content: $event})"
+            v-on:typing="channel.whisper('typing',{
+                user_id: $page.props.auth.user.id,
+                typing:$event,
+            })"/>
             <!-- END Footer -->
 
         </div>
